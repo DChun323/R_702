@@ -7,3 +7,7 @@
 *.xls*
 
 data*/
+
+rnorm(10)
+set.seed(123)
+rnorm(10)
