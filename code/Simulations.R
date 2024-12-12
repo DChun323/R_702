@@ -8,19 +8,52 @@ rnorm(10)
 set.seed(123)
 rnorm(10)
 set.seed(123)
+rnorm(10)
 
 #1 Simul. from distrib
 rnorm(10)
-rpois(10, 2)
+rpois(10, 2) #mean and variance
+
+library(gamlss)
+?gamlss.family
+rSI(10) #count distribution
+rSI(10, mu = 5)
 
 #2 Simulate from the model
 #2.1 Simple linear regression
-n <- 1000 #Sample size
+
+names(iris)
+m0 = lm(Sepal.Length ~ Sepal.Width, data = iris)
+n = nrow(iris)
+e = rnorm(n, sd = sd(m0$residuals))
+a = coef(m0)[1]
+b = coef(m0)[2]
+Sepal.Length.sim = a - b * iris$Sepal.Width + e
+
+par(mfrow = c(2,1))
+hist(iris$Sepal.Length)
+hist(Sepal.Length.sim)
+
+n <- 10 #Sample size
 x <- rnorm(n) #independent variable
 y <- 2*x + rnorm(n) #dependent variable
 #DGP: y = 2x + e, e~i.i.d. N(0,1)
 out <- lm(y ~ x)
 summary(out)
+
+#loop
+set.seed(123)
+N = 10000
+pv = rep(NA, N) #pv is p_value, repeat the value and for the value, I put NA, N times
+for(i in 1:N) {
+  x <- rnorm(n) #independent variable
+  y <- 2*x + rnorm(n) #dependent variable
+  out <- lm(y ~ x)
+  s <- summary(out)
+  pv[i] =  s$coefficients[2, "Pr(>|t|)"]
+}
+#proportion of cases with H0 rejeccted
+mean(pv < 0.05)
 
 #2.2 Generalized linear model -- GLM (Poisson model)
 beta0 <- 0.1
