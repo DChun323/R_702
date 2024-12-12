@@ -136,7 +136,7 @@ system.time(
 )
 
 stopCluster(cl)
-
+# stop cluster function
 
 # References ----
 # Jonathan Dursi. Beyond Single-Core R
