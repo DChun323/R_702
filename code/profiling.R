@@ -87,6 +87,12 @@ profvis(causality_pred(Canada[,1:2], cause = "e",
 # In the flame graph, the horizontal direction represents time in milliseconds,
 # and the vertical direction represents the call stack.
 
+# when we realized a function takes too long
+# 1. look at if a function is used repetitively, we can simplify it
+# 2. use matrix
+# 3. parallelize your code in different ways: if you need to compute and use the function  multiple times,
+# you are externally parallelizing
+# or you can parallelize computation within that function
 
 # parallel ----
 # E.g., optional parallel computing is allowed in the function below
