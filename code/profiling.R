@@ -4,27 +4,39 @@
 rm(list = ls())
 
 # utils::Rprof() ----
+## Rprof()a built-in R function used for profiling the performance of R code. 
+# Profiling helps you analyze where time is being spent in your code, 
+# so you can identify slow sections and optimize them.
+# Start Profiling: Use Rprof() to begin recording performance. 
+# It tracks every function call and the time spent on it.
+# Stop Profiling: Call Rprof(NULL) to stop profiling
+# View Results: Use summaryRprof() to generate a summary of the profiling data.
+
 
 ## Profile snowboot::sample_about_one_seed() ----
 library(snowboot)
 
 # Example data to run the function on
-ntwrk = artificial_networks[[1]]
+ntwrk = artificial_networks[[1]] 
+# artificial_networks is a dataset in snowboot package
 
 # For relatively fast functions, repeat calculations nrep times.
 # In this case, let it be the order of the network (order = number of nodes).
 nrep = ntwrk$n
 
-# See the time it takes
+# See the time it takes by using system.time()
 system.time(for (i in 1:nrep) {
     sample_about_one_seed(net = ntwrk, seed = i, n.wave = 5)
 })
 
+
+# if we want to see how much time each step of the function takes or each embedded or nested function
 # See the time each step takes
 Rprof(tmp <- tempfile())
 for (i in 1:nrep) {sample_about_one_seed(net = ntwrk, seed = i, n.wave = 5)}
 Rprof(NULL)
 summaryRprof(tmp)
+## Results: by self, by total, sample.interval, sampling.time
 
 
 
@@ -68,7 +80,6 @@ profvis(causality_pred(Canada[,1:2], cause = "e",
 
 
 # parallel ----
-
 # E.g., optional parallel computing is allowed in the function below
 # (see the argument cl)
 ?funtimes::causality_pred
