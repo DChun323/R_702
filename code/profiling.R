@@ -29,23 +29,26 @@ system.time(for (i in 1:nrep) {
     sample_about_one_seed(net = ntwrk, seed = i, n.wave = 5)
 })
 
-
 # if we want to see how much time each step of the function takes or each embedded or nested function
 # See the time each step takes
 Rprof(tmp <- tempfile())
 for (i in 1:nrep) {sample_about_one_seed(net = ntwrk, seed = i, n.wave = 5)}
 Rprof(NULL)
 summaryRprof(tmp)
-## Results: by self, by total, sample.interval, sampling.time
+# Results: by self, by total, sample.interval, sampling.time
 
 
 
-## Profile funtimes::causality_pred() ----
+#### Profile funtimes::causality_pred() ----
 library(funtimes)
+# funtimes::causality_pred() is a function in the funtimes package used for causl inference in time series data
+# The main goal of this function is to predict causal relationships between two or more time series. 
 
 # Example data to run the function on
 ?funtimes::causality_pred
-Canada <- vars::Canada
+Canada <- vars::Canada  #example dataset
+
+
 
 # For relatively fast functions, repeat calculations nrep times.
 # In this case, we can also slow down the function using a
@@ -56,6 +59,9 @@ system.time(
     causality_pred(Canada[,1:2], cause = "e",
                    lag.max = 5, p.free = TRUE, B = 1000L)
 )
+## if want to deliberately slow down run time of old function, two options:
+## increase number of bootstrap or run a bigger data
+
 
 # See the time each step takes
 Rprof(tmp <- tempfile())
@@ -63,7 +69,10 @@ causality_pred(Canada[,1:2], cause = "e",
                lag.max = 5, p.free = TRUE, B = 1000L)
 Rprof(NULL)
 summaryRprof(tmp)
+## Results:stats::lm.fit takes the most time, so we can:
+## replace this lm.fit with other calculations if possible
 
+# plot/visualize running time
 d = summaryRprof(tmp)
 d$by.total[order(d$by.total$self.pct), ]
 
