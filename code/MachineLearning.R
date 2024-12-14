@@ -4,6 +4,11 @@
 # - the algorithms should be tuned and compared via a formal cross-validation
 #(e.g., using a holdout sample for testing that is not used for selecting and training the algorithms).
 
+# Outline
+# Forward pass
+# Back-propagation
+# Overview of extentions
+
 rm(list = ls())
 data(swiss)
 set.seed(123)
@@ -209,3 +214,6 @@ cor(swiss$Examination, as.vector(pred_dl))
 # c) dropout ratios.
 
 # Remember to use cross-validation (was not implemented in the given examples).
+
+## http://deeplearning.net/ -- reading, software, events
+## http://freecomputerbooks.com/ -- free books
