@@ -98,7 +98,6 @@ ccf_boot_optimized <- function(x,
                        r_S = rS,
                        lower_S = crS[1,], upper_S = crS[2,]) # Spearman
   
-  # Plotting
   if (plt == "Pearson") {
     TMP <- RESULT[, grepl("_P", names(RESULT))]
   }
