@@ -217,3 +217,7 @@ cor(swiss$Examination, as.vector(pred_dl))
 
 ## http://deeplearning.net/ -- reading, software, events
 ## http://freecomputerbooks.com/ -- free books
+
+## coding
+## pytorch
+## Tensorflow
