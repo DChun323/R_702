@@ -8,6 +8,7 @@ rm(list = ls())
 data(swiss)
 set.seed(123)
 
+### example 1
 #### CART ####
 library(rpart)
 fit_cart <- rpart(Examination ~ ., data = swiss)
